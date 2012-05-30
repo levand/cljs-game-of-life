@@ -3,6 +3,7 @@
   :plugins [[lein-cljsbuild "0.2.1"]
             [lein-ring "0.7.1"]]
   :dependencies [[org.clojure/clojure "1.4.0"]
+                 [org.clojure/clojurescript "0.0-1069"]
                  [compojure "1.1.0"]]
   :ring {:handler server/handler}
   :cljsbuild {:builds

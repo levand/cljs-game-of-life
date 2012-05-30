@@ -1,4 +1,4 @@
-(ns game-of-life-answer
+(ns game-of-life
   (:require [clojure.browser.repl :as repl]))
 
 (repl/connect "http://localhost:9000/repl")
@@ -84,13 +84,9 @@
   (if-not *stop-flag*
     (js/setTimeout #(render-game! canvas size (rest game)) 1)))
 
-(defn run-game!
+(defn :^export start
   "Set up and kick the whole thing off."
   [size]
   (let [canvas (.getElementById js/document "life-canvas")]
     (setup-canvas! canvas size)
     (render-game! canvas size (game size))))
-
-
-
-

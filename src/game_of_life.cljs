@@ -84,7 +84,7 @@
   (if-not *stop-flag*
     (js/setTimeout #(render-game! canvas size (rest game)) 1)))
 
-(defn :^export start
+(defn ^:export start
   "Set up and kick the whole thing off."
   [size]
   (let [canvas (.getElementById js/document "life-canvas")]

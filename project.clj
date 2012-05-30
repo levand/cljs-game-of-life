@@ -6,7 +6,7 @@
                  [compojure "1.1.0"]]
   :ring {:handler server/handler}
   :cljsbuild {:builds
-              [{:source-path "src/cljs"
+              [{:source-path "src"
                 :compiler {:output-to "resources/public/life.js"
                            :optimizations :whitespace
                            :pretty-print true}}]})

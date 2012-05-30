@@ -43,9 +43,10 @@
 (defn build-grid
   "Given a size, a grid, and a liveness function, return a new grid."
   [size alive? prev]
-  (into #{} (for [x (range size)
-                 y (range size)]
-              (if (alive? x y prev) [x y]))))
+  (time
+   (into #{} (for [x (range size)
+                   y (range size)]
+               (if (alive? x y prev) [x y])))))
 
 (defn rand-bool
   [_ _ _]
@@ -59,9 +60,41 @@
     (when-not (and (zero? mx) (zero? my))
       [(+ x mx) (+ y my)])))
 
-(defn cell-lives?
+;; Use this for now
+
+;; massive speedup by encoding points as ints instead of vectors.
+5
+(defn cell-lives?-slow
   [x y grid]
   (let [live-neighbors (count (filter grid (neighbors x y)))]
+    (or
+     (= 3 live-neighbors)
+     (and (grid [x y])
+          (= 2 live-neighbors)))))
+
+(defn cell-lives?-falsy
+  [x y grid]
+  false)
+
+(defn cell-lives?-truthy
+  [x y grid]
+  true)
+
+(defn count-live-neighbors
+  [x y grid]
+  (loop [ix -1
+         iy -1
+         n 0]
+    (let [t (grid [(+ x ix) (+ y iy)])]
+      (if (= ix iy 1)
+        n
+        (if (= ix 1)
+          (recur -1 (inc iy) (if t (inc n) n))
+          (recur (inc ix) iy (if t (inc n) n)))))))
+
+(defn cell-lives?
+  [x y grid]
+  (let [live-neighbors (count-live-neighbors x y grid)]
     (or
      (= 3 live-neighbors)
      (and (grid [x y])
@@ -71,7 +104,7 @@
   "Returns an infinite sequence of game states initialized with a
   random state"
   [size]
-  (iterate (partial build-grid size cell-lives?)
+  (iterate (partial build-grid size cell-lives?-slow)
            (build-grid size rand-bool nil)))
 
 ;; Is checked before each game loop, set to true to stop the current execution.
@@ -80,11 +113,12 @@
 (defn render-game!
   "Recursively renders successive game states."
   [canvas size game]
-  (render-grid! canvas (first game) size)
-  (if-not *stop-flag*
-    (js/setTimeout #(render-game! canvas size (rest game)) 1)))
+  (when game
+    (render-grid! canvas (first game) size)
+    (if-not *stop-flag*
+      (js/setTimeout #(render-game! canvas size (rest game)) 1))))
 
-(defn ^:export start
+(defn start
   "Set up and kick the whole thing off."
   [size]
   (let [canvas (.getElementById js/document "life-canvas")]

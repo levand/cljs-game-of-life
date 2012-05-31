@@ -3,6 +3,8 @@
 
 (repl/connect "http://localhost:9000/repl")
 
+;; (def canvas (.getElementById js/document "life-canvas"))
+
 (def cell-size 10)
 
 (defn setup-canvas!

@@ -46,6 +46,7 @@
               (if (alive? x y prev) [x y]))))
 
 (defn rand-bool
+  "Return a random boolean value"
   [_ _ _]
   (zero? (rand-int 2)))
 
@@ -58,6 +59,8 @@
       [(+ x mx) (+ y my)])))
 
 (defn cell-lives?
+  "Returns whether a cell should be live or dead based on a given
+  state."
   [x y grid]
   (let [live-neighbors (count (filter grid (neighbors x y)))]
     (or

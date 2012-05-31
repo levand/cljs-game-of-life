@@ -5,8 +5,6 @@
 
 (def cell-size 10)
 
-#_(def canvas (.getElementById js/document "life-canvas"))
-
 (defn setup-canvas!
   "Sets the canvas size and initializes the background"
   [canvas size]

@@ -26,7 +26,7 @@ If you like, you can use `lein cljsbuild auto` to automatically recompile whenev
 
 #### 5. Hook up a REPL and start hacking.
 
-First, run `lein cljsbuild repl-listen` at the command prompt (or as an inferior lisp in Emacs).
+First, run `lein trampoline cljsbuild repl-listen` at the command prompt (or as an inferior lisp in Emacs).
 
 Then, load `localhost:3000/repl.html` in your browser. This will connect to the REPL you just started. If you loaded repl.html before you started the repl server, you'll need to refresh the page to ensure that the Javascript code successfully connects to the REPL server.
 

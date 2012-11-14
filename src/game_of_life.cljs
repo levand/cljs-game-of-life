@@ -44,7 +44,7 @@
   "Given a size, a grid, and a liveness function, return a new grid."
   [size alive? prev]
   (into #{} (for [x (range size)
-                 y (range size)]
+                  y (range size)]
               (if (alive? x y prev) [x y]))))
 
 (defn rand-bool

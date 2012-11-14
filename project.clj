@@ -1,6 +1,6 @@
 (defproject game-of-life "0.1.0-SNAPSHOT"
   :description "Game of Life demo in ClojureScript"
-  :plugins [[lein-cljsbuild "0.2.1"]
+  :plugins [[lein-cljsbuild "0.2.9"]
             [lein-ring "0.7.1"]]
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [compojure "1.1.0"]]
